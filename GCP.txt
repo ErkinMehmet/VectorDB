@@ -1,0 +1,15 @@
+# config
+gcloud config list
+gcloud config configurations list
+gcloud config configurations create alpha
+gcloud config set account hli@fqm.ca
+gcloud config set project project-086c6e1d-aa78-41be-809
+gcloud project list
+gcloud config set compute/region asia-south2 # set default region
+
+gcloud compute instances create instance-demo2 # create a VM
+gcloud compute instances list
+# inside the VM
+sudo apt update
+sudo apt -y install apache2
+sudo systemctl status apache2

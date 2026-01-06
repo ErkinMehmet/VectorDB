@@ -1,0 +1,35 @@
+ibmcloud login -a https://cloud.ibm.com -u passcode -p EyNVyXxxmk
+ibmcloud target -g Default
+ibmcloud target
+ibmcloud plugin install code-engine
+ibmcloud plugin list
+ibmcloud ce project create --name serverless-microservice
+ibmcloud ce project select --name serverless-microservice
+ibmcloud ce project current
+ibmcloud ce registry create --name icr-secret --server us.icr.io # create the icr secret
+ibmcloud ce registry list
+ibmcloud plugin install container-regis
+ibmcloud cr namespace-add monnamespacetry
+ibmcloud cr namespaces
+ibmcloud ce application create --name prodlist `
+  --image us.icr.io/fqm2025/prodlist `
+  --registry-secret icr-secret `
+  --port 5000 `
+  --build-context-dir products_list `
+  --build-source https://github.com/ErkinMehmet/dealer_evaluation_backend.git
+
+ibmcloud ce application create --name dealerdetails `
+  --image us.icr.io/fqm2025/dealerdetails `
+  --registry-secret icr-secret `
+  --port 8080 `
+  --build-context-dir dealer_details `
+  --build-source https://github.com/ErkinMehmet/dealer_evaluation_backend.git
+
+ibmcloud ce application get --name dealerdetails
+
+ibmcloud ce application create --name frontend `
+  --image us.icr.io/fqm2025/frontend `
+  --registry-secret icr-secret `
+  --port 5001 `
+  --build-context-dir . `
+  --build-source  https://github.com/ErkinMehmet/dealer_evaluation_frontend.git
